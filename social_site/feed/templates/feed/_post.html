@@ -4,8 +4,8 @@
   <div class="profile">
     <a href="{% url 'accounts:user_profile' slug=post.user.profile|slugify %}">
       <br>
-      <img class='rounded-circle account-img' src="{{ post.user.profile.image.url }}" alt="" width="35" height="35">
-      <p style="font-weight:bold;font-style:italic;display:inline">{{post.user}}</p>
+      <img class='rounded-circle account-img' style='margin-bottom:1em' src="{{ post.user.profile.image.url }}" alt="" width="40em" height="40em">
+      <p style="font-weight:bold;font-style:italic;display:inline;font-size:2em;">{{post.user}}</p>
     </a>
   </div>
   <div class="post_content">
