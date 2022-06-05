@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <form action="{% url 'accounts:search_users' %}" method="get">
+    <input type="text" name="user_name" placeholder="search">
+  </form>
+  <h1>Search Results</h1>
+  <div class="">
+    <ul>
+      {% for user in object_list  %}
+        <br><li><a href="{% url 'accounts:user_profile' slug=user|slugify %}">
+        {{user}}</a></li>
+      {%endfor%}
+    </ul>
+
+  </div>
+
+{% endblock %}

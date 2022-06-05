@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+<form action="{% url 'feed:search_posts' %}" method="get">
+  <input type="text" name="post_tags" placeholder="search">
+</form>
+  <div class="">
+  <h1>Posts by other users :  </h1>
+      {% for post in page_obj  %}
+        {% if post.user != user %}
+          {% include 'feed/_post.html' %}
+        {% endif %}
+      {%endfor%}
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

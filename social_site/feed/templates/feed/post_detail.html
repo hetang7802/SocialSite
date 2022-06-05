@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{post.description}}</h1>
+  <a href="{{post.pic.url}}"><img src="{{post.pic.url}}" alt="" width="400" height="400"></a>
+
+  <p>
+    <div class="post_info">
+      by
+      <a href="#">{{post.user.profile}}</a>
+      <br>
+      tags : {{post.tags}}
+      <br>
+      posted_on : {{post.date_posted}}
+    </div>
+
+    {{ post.likes.count }} Like{{post.likes.count|pluralize}}
+
+  {% if user != post.user %}
+   {% if post in liked_posts %}
+       <a href="{% url 'feed:post_like' pk=post.pk %}" style="color:blue"><span class='glyphicon glyphicon-thumbs-up'></span></a>
+   {% else %}
+       <a href="{% url 'feed:post_like' pk=post.pk %}" style="color:black"><span class='glyphicon glyphicon-thumbs-up'></span></a>
+   {% endif %}
+  {% endif %}
+  <br>
+  {{post.comments.count}} comment{{post.comments.count|pluralize}}
+  {% if user != post.user %}
+    <a href="{% url 'feed:new_comment' pk=post.pk%}">
+      <span class="glyphicon glyphicon-comment" style="color:black" ></span></a>
+  {% endif %}
+
+  {% if user == post.user %}
+  <br>
+    <a href="{%url 'feed:post_update' pk=post.pk %}" class="btn btn-info btn-large">update post </a>
+    <a href="{%url 'feed:post_delete' pk=post.pk %}" class="btn btn-small btn-danger ">Delete post</a>
+  {% endif %}
+  </p>
+{% endblock %}

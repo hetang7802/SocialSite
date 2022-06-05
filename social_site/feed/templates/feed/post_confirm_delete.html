@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <h2>Are you sure you want to delete {{object}}?</h2>
+
+
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    <input type="submit" name="" value="Confirm" class="btn btn-danger btn-large">
+    <br>
+    <br>
+    <a href="{% url 'feed:post_list_view' %}" class="btn btn-simple btn-secondary ">Cancel</a>
+  </form>
+{% endblock %}

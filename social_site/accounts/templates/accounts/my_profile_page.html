@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <div>
+    <div class="">
+      <h1>Your Profile</h1>
+      <p>
+        <a href="{% url 'accounts:update_profile' slug=user.profile.slug %}"><span class='glyphicon glyphicon-pencil'></span></a>
+      </p>
+      <br>
+    </div>
+    <div class="media">
+      <br>
+      <img class = 'rounded-circle account-img' src="{{ user.profile.image.url }}" alt=""
+        width="75" height="75">
+      <div class="media-body">
+        <h2>{{user.username}}</h2>
+        <p class = 'text-secondary'>{{user.email}}</p>
+      </div>
+    </div>
+    {% if user.profile.bio|length %}
+      BIO: {{user.profile.bio}}
+    {% else %}
+      <p>You haven't set your bio yet, set it now in profile update!</p>
+    {% endif %}
+    <br>
+    <a href="{% url 'accounts:reset_password' %}">Change Password</a>
+  </div>
+
+  <div class="">
+    <p>You have
+      <a href="{% url 'accounts:friend_list' slug=user.profile.slug %}">
+      {{ user.profile.friends.count }}</a> friends</p>
+  </div>
+
+  <br>
+
+  <a href="{% url 'feed:user_posts' slug=user.profile.slug %}">My Posts</a>
+
+
+
+
+{% endblock %}

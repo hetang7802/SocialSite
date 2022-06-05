@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+<form action="{% url 'feed:search_posts' %}" method="get">
+  <input type="text" name="post_tags" placeholder="search post based on tags">
+</form>
+  <h1>Posts by other users containing tag : "{{tags}}"  </h1>
+  <div class="">
+    <ul>
+      {% for post in object_list  %}
+        {% if post.user != user %}
+          {% include 'feed/_post.html' %}
+        {% endif %}
+      {%endfor%}
+    </ul>
+
+  </div>
+{% endblock %}

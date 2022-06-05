@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  These are the comments on the post : <br>
+   <p style="font-style:italic;">
+     <img src="{{post.pic.url}}" alt="" width='200px' height='200px'>
+     <br>
+     {{post}}
+   </p>
+   <hr style="height:1px;border:none;color:#333;background-color:#333;">
+    {% if object_list|length == 0 %}
+      No comments yet
+    {% endif %}
+
+    {% for i in object_list %}
+        <p>{{i.message}}
+          <br>
+          by
+          <a href="{% url 'accounts:user_profile' slug=i.user.profile.slug %}">
+            {{i.user.profile}}
+          </a>
+        </p>
+    {% endfor %}
+
+{% endblock %}

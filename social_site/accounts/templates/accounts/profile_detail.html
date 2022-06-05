@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <div>
+    <div class="media">
+      <img class = 'rounded-circle account-img' src="{{ object.user.profile.image.url }}" alt=""
+        width="75" height="75">
+      <div class="media-body">
+        <h2>{{object.user.username}}</h2>
+        <p class = 'text-secondary'>{{object.user.email}}</p>
+      </div>
+    </div>
+    <!-- <a href="{% url 'accounts:reset_password' %}">Change Password</a> -->
+  </div>
+  {% if object.user.profile.bio|length %}
+    <p>USER's BIO:  {{object.user.profile.bio}}</p>
+  {% else %}
+    <p>User is yet to set his/her bio.</p>
+  {% endif %}
+  <br>
+  <p>Status with user : {{button_status}} </p>
+  {% if button_status == 'not_friend' %}
+    <a href="{% url 'accounts:send_friend_request' id=object.user.id%}">
+      <button type="button" name="button">Make Friend</button>
+    </a>
+  {% endif %}
+  {% if button_status == 'friend_request_sent' %}
+    <a href="{% url 'accounts:cancel_friend_request' id=object.user.id%}">
+      <button type="button" name="button">cancel friend request</button>
+    </a>
+  {% endif %}
+  {% if button_status == 'friend_request_received' %}
+    <a href="{% url 'accounts:accept_friend_request' id=object.user.id%}">
+      <button type="button" name="button">accept</button>
+    </a>
+    <a href="{% url 'accounts:decline_friend_request' id=object.user.id%}">
+      <button type="button" name="button">reject</button>
+    </a>
+  {% endif %}
+  {% if button_status == 'friend' %}
+    <a href="{% url 'accounts:delete_friend' id=object.user.id%}">
+      <button type="button" name="button">delete friend</button>
+    </a>
+  {% endif %}
+
+  <div class="">
+    <br><br>
+    <p>Friends of user: </p>
+    {% for u in friends %}
+      <!-- <p>{{u}}</p> -->
+      {% if u.user != user %}
+        <a href="{% url 'accounts:user_profile' slug=u|slugify %}">{{u}}<br></a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="">
+    <br><br>
+    <a href="{% url 'feed:user_posts' slug=u|slugify %}">Posts by {{object.user}}</a>
+
+  </div>
+
+  <!-- <div class="">
+    <p>The user has
+      <a href="{% url 'accounts:friend_list' slug=object.user.profile.slug %}">
+      {{ object.user.profile.friends.count }}</a> friends</p>
+  </div> -->
+
+{% endblock %}

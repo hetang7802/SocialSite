@@ -1,0 +1,50 @@
+<!-- template for a single post in post list view -->
+
+<div class="post">
+  <div class="profile">
+    <a href="{% url 'accounts:user_profile' slug=post.user.profile|slugify %}">
+      <br>
+      <img class='rounded-circle account-img' src="{{ post.user.profile.image.url }}" alt="" width="35" height="35">
+      <p style="font-weight:bold;font-style:italic;display:inline">{{post.user}}</p>
+    </a>
+  </div>
+  <div class="post_content">
+    <a href="{% url 'feed:post_detail_view' pk=post.pk %}" >
+      <img src="{{post.pic.url}}" alt="" width="50%" height="300">
+      <br>
+        {{post}}
+      <br>
+        posted on {{post.date_posted}}
+      <br>
+        tags: {{post.tags}}
+      <br>
+    </a>
+
+    <p>{{ post.likes.count }} Like{{post.likes.count|pluralize}}
+    {% if user != post.user %}
+     {% if post in liked_posts %}
+         <a href="{% url 'feed:post_like' pk=post.pk %}" style="color:blue"><span class='glyphicon glyphicon-thumbs-up'></span></a>
+     {% else %}
+         <a href="{% url 'feed:post_like' pk=post.pk %}" style="color:black"><span class='glyphicon glyphicon-thumbs-up'></span></a>
+     {% endif %}
+    {% endif %}
+
+    <br>
+    <a href="{% url 'feed:post_comments' pk=post.pk%}">
+      {{post.comments.count}} comment{{post.comments.count|pluralize}}
+    </a>
+    {% if user != post.user %}
+      <a href="{% url 'feed:new_comment' pk=post.pk%}">
+      <span class="glyphicon glyphicon-comment" style="color:black" ></span></a>
+    {% endif %}
+
+    {% if user == post.user %}
+    <br>
+      <a href="{%url 'feed:post_update' pk=post.pk %}" class="btn btn-info btn-large">update post </a>
+      <a href="{%url 'feed:post_delete' pk=post.pk %}" class="btn btn-small btn-danger ">Delete post</a>
+    {% endif %}
+    </p>
+    <br><br>
+  </div>
+
+</div>

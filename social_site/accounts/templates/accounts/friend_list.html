@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+  <h1>Friends of user {{list_user_profile.user}} : </h1>
+  <div class="">
+    <ul>
+      {% for name in object_list  %}
+        <br><li>
+            <a href="{% url 'accounts:user_profile' slug=name|slugify %}">{{name}}</a>
+        </li>
+      {%endfor%}
+    </ul>
+
+  </div>
+{% endblock %}
