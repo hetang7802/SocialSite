@@ -65,10 +65,11 @@ class user_profile(generic.DetailView):
         rec_friend_request = models.FriendRequest.objects.filter(to_user = u)
         # user_posts = Post.objects.filter(user_name=u)
         button_status = 'none'
-        # print(User.objects.first().profile)
+        # print(self.request.user)
+        # print(User.objects.first())
         # print(p)
-        # print(u.profile.friends.all())
-        if User.objects.first().profile not in u.profile.friends.all():
+        # print("user friends {}".format(u.profile.friends.all()))
+        if self.request.user.profile not in u.profile.friends.all():
             button_status = 'not_friend'
         else :
             button_status = 'friend'
@@ -162,8 +163,9 @@ def decline_friend_request(request,id):
 
 def delete_friend(request, id):
     f_user = get_object_or_404(User, id=id)
+    print("user is {}".format(f_user))
     f_user.profile.friends.remove(request.user.profile)
-    request.user.profile.friends.remove(f_user)
+    request.user.profile.friends.remove(f_user.profile)
     return HttpResponseRedirect('/accounts/profile_page')
 
 # @login_required

@@ -31,14 +31,14 @@ class PostListView(generic.ListView):
         return context
 
     def get_queryset(self,**kwargs):
-        return Post.objects.exclude(user=self.request.user)
+        return Post.objects.exclude(user=self.request.user).order_by('-date_posted')
 
 class UserPostListView(LoginRequiredMixin,generic.ListView):
     model = Post
     template_name = 'feed/UserPosts.html'
     context_object_name = 'posts'
     paginate_by = 10
-    ordering = ['-date_posted']
+    ordering = ['date_posted']
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,7 +52,7 @@ class UserPostListView(LoginRequiredMixin,generic.ListView):
     def get_queryset(self,**kwargs):
         profile = get_object_or_404(Profile, slug=self.kwargs.get('slug'))
         user = profile.user
-        return Post.objects.filter(user=user)
+        return Post.objects.filter(user=user).order_by('-date_posted')
 
 class PostDetailView(generic.DetailView):
     model = Post
