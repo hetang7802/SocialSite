@@ -1,2 +1,7 @@
 # SocialSiteGithubRepo
- Social media website using django
+Created a django based social media website where users can share, create, like or comment on posts. 
+Users can also make friends with other users. 
+![image](https://user-images.githubusercontent.com/83627593/177610707-077ad793-8dd8-4c9c-9d2d-af0a4323a29e.png)
+![image](https://user-images.githubusercontent.com/83627593/177610723-a4bdc7eb-acf9-4ef5-b1f1-47643ac33b2c.png)
+![image](https://user-images.githubusercontent.com/83627593/177611055-2e6112ea-7c99-42a2-8155-cee687b15dd7.png)
+
