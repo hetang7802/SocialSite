@@ -15,3 +15,5 @@ Users can also make friends with other users.
 ## Posts can be searched based on tags.
 ![image](https://user-images.githubusercontent.com/83627593/177611775-9d80a9f1-587e-4548-81bd-d30c7a5a7d6a.png)
 
+## Users can send friend request to other users.
+![image](https://user-images.githubusercontent.com/83627593/177614106-c81b4bbd-d236-44ba-9a3a-876b4262c9d0.png)
